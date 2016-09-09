@@ -1,0 +1,33 @@
+// http://ionicframework.com/docs/v2/theming/
+
+
+// App Shared Imports
+// --------------------------------------------------
+// These are the imports which make up the design of this app.
+// By default each design mode includes these shared imports.
+// App Shared Sass variables belong in app.variables.scss.
+
+@import "../pages/spending/spending";
+
+@import "../pages/account/account";
+
+@import "../pages/settlement/settlement";
+
+.aa-tag {
+  background: color($colors, primary);
+  padding: 1px 5px;
+  margin: 0 2px 2px 2px;
+  color: #fff;
+  border-radius: 4px;
+  display: inline-block;
+}
+.spending-amount {
+  font-size: 150%;
+  color: #B71717;
+  font-weight: lighter;
+}
+.transfer-amount {
+  font-size: 150%;
+  color: #19289A;
+  font-weight: lighter;
+}

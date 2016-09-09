@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Transactions</ion-title>
+    <ion-buttons end>
+      <button (click)="newSpending()">
+        <ion-icon name="pricetag"></ion-icon>
+      </button>
+      <button (click)="newTransfer()">
+        <ion-icon name="swap"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <div *ngFor="let g of list">
+      <ion-item-divider light>{{ g.header | date:'mediumDate' }}</ion-item-divider>
+      <ion-item-sliding *ngFor="let i of g.details">
+        <ion-item (click)="goSpending(i.trx.id)">
+          <span [class.spending-amount]="i.trx.type == spendingType" [class.transfer-amount]="i.trx.type == transferType">{{ i.trx.amount | number:'1.2-2' }}</span>
+          <div style="float: right">
+            <aa-accounts [accounts]="i.payers"></aa-accounts>
+            <span *ngIf="i.trx.type == spendingType"><ion-icon name="people"></ion-icon> {{ i.trx.payeeIds.length }}</span>
+            <span *ngIf="i.trx.type == transferType"><ion-icon name="arrow-forward"></ion-icon> <aa-accounts [accounts]="i.payees"></aa-accounts></span>
+          </div>
+          <div style="clear: both"></div>
+          <p *ngIf="i.trx.memo.length > 0" style="white-space: pre-wrap">{{ i.trx.memo }}</p>
+          <p style="float: right"><small>{{ i.trx.time | date:'shortTime' }}</small></p>
+          <div style="clear: both"></div>
+        </ion-item>
+        <ion-item-options>
+          <button danger (click)="deleteTransaction(i.trx.id)"><ion-icon name="trash"></ion-icon> Delete</button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </div>
+  </ion-list>
+  <ion-card *ngIf="list.length == 0">
+    <ion-card-header>
+      There are no transactions.
+    </ion-card-header>
+    <ion-card-content>
+      You might want to add a <a (click)="newSpending()"><ion-icon name="pricetag"></ion-icon> spending</a> or <a (click)="newTransfer()"><ion-icon name="swap"></ion-icon> transfer</a> entry.
+    </ion-card-content>
+  </ion-card>
+</ion-content>

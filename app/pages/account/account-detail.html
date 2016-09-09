@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons left>
+      <button (click)="dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title *ngIf="new">New Account</ion-title>
+    <ion-title *ngIf="!new">Account Detail</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <ion-list radio-group [(ngModel)]="type" name="type">
+      <ion-list-header>
+        Account Type
+      </ion-list-header>
+      <ion-item>
+        <ion-label>Person</ion-label>
+        <ion-radio value="1"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>Wallet</ion-label>
+        <ion-radio value="2"></ion-radio>
+      </ion-item>
+    </ion-list>
+    <ion-item>
+      <ion-label floating>Name</ion-label>
+      <ion-input [formControl]="form.controls.name" [(ngModel)]="model.name" name="name"></ion-input>
+    </ion-item>
+  </form>
+  <ion-footer>
+    <button *ngIf="new" block (click)="save()" [disabled]="!form.valid">Create</button>
+    <button *ngIf="!new" block (click)="save()" [disabled]="!form.valid">Save</button>
+  </ion-footer>
+</ion-content>

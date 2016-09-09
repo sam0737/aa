@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Accounts</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list-header *ngIf="wallets.length > 0">
+    Wallets
+  </ion-list-header>
+  <ion-item *ngFor="let i of wallets" (click)="goAccount(i.account.id)">
+    {{ i.account.name }}
+  </ion-item>
+  <ion-list-header *ngIf="people.length > 0">
+    People
+  </ion-list-header>
+  <ion-item *ngFor="let i of people" (click)="goAccount(i.account.id)">
+    {{ i.account.name }}
+  </ion-item>
+
+  <ion-card *ngIf="wallets.length == 0 &amp;&amp; people.length == 0">
+    <ion-card-header>
+      There are current no accounts. 
+    </ion-card-header>
+    <ion-card-content>
+      Accounts are created when you create transaction.
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+

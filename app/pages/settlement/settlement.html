@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Settlements</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let i of list" (click)="goSettlement(i.trx)">
+      <span class="transfer-amount">{{ i.trx.amount | number:'1.2-2' }}</span>
+      <div style="float: right">
+        <aa-accounts [accounts]="i.payers"></aa-accounts>
+        <ion-icon name="arrow-forward"></ion-icon> <aa-accounts [accounts]="i.payees"></aa-accounts>
+      </div>
+      <div style="clear: both"></div>
+    </ion-item>
+  </ion-list>
+  <ion-card *ngIf="list.length == 0">
+    <ion-card-header>
+      Everything is settled.
+    </ion-card-header>
+    <ion-card-content>
+      All transactions are balanced. You might want to enter more?
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+

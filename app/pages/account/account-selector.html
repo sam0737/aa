@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title *ngIf="mode == 'payer'">Select Payer</ion-title>
+    <ion-title *ngIf="mode == 'payee'">Select Payee</ion-title>
+    <ion-buttons left>
+      <button (click)="dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-buttons right>
+      <button (click)="add()">
+        <ion-icon name="add"></ion-icon> Add Account
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngIf="!multiple" radio-group [(ngModel)]="singleId" name="singleId">
+    <ion-list-header *ngIf="wallets.length > 0">
+      Wallets
+    </ion-list-header>
+    <ion-item *ngFor="let i of wallets">
+      <ion-label>{{ i.account.name }}</ion-label>
+      <ion-radio [value]="i.account.id"></ion-radio>
+    </ion-item>
+    <ion-list-header *ngIf="people.length > 0">
+      People
+    </ion-list-header>
+    <ion-item *ngFor="let i of people">
+      <ion-label>{{ i.account.name }}</ion-label>
+      <ion-radio [value]="i.account.id"></ion-radio>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="multiple">
+    <ion-list-header *ngIf="wallets.length > 0">
+      Wallets
+    </ion-list-header>
+    <ion-item *ngFor="let i of wallets">
+      <ion-label>{{ i.account.name }}</ion-label>
+      <ion-checkbox [(ngModel)]="i.checked"></ion-checkbox>
+    </ion-item>
+    <ion-list-header *ngIf="people.length > 0">
+      People
+    </ion-list-header>
+    <ion-item *ngFor="let i of people">
+      <ion-label>{{ i.account.name }}</ion-label>
+      <ion-checkbox [(ngModel)]="i.checked"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+  <ion-card *ngIf="wallets.length == 0 &amp;&amp; people.length == 0">
+    <ion-card-header>
+      There are no accounts.
+    </ion-card-header>
+    <ion-card-content>
+      Please <a (click)="add()"><ion-icon name="add"></ion-icon> add one</a>.
+    </ion-card-content>
+  </ion-card>
+
+  <ion-footer>
+    <button block (click)="save()" [disabled]="!valid">Select</button>
+  </ion-footer>
+</ion-content>
