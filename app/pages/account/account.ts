@@ -34,11 +34,15 @@ export class AccountPage {
   }
   add()
   {
-    this.modal.create(AccountDetailPage, {modal: true}).present().then(() => { this.bs.save(); });
+    let m = this.modal.create(AccountDetailPage, {modal: true});
+    m.onDidDismiss((data) => { if (data) this.bs.save(); });
+    m.present();;
   }
   goAccount(id: string)
   {
-    this.modal.create(AccountDetailPage, {'modal': true, 'id': id}).present().then(() => { this.bs.save(); });
+    let m = this.modal.create(AccountDetailPage, {modal: true, id: id});
+    m.onDidDismiss((data) => { if (data) this.bs.save(); });
+    m.present();
   }
 }
 
@@ -49,12 +53,14 @@ export class AccountSelectorPage {
   wallets: any[];
   people: any[];
   mode: string;
+  noWallet: boolean;
   multiple: boolean;
 
   valid: boolean;
   _singleId: string;
   constructor(private nav: NavController, private view: ViewController, private navParams: NavParams, private modal: ModalController, private bs: BookService) {
     this.mode = navParams.get('mode');
+    this.noWallet = this.mode == 'client';
     this.multiple = !!navParams.get('multiple');
     this.valid = true;
     this.wallets = [];
@@ -79,7 +85,7 @@ export class AccountSelectorPage {
     let ids = oldIds !== undefined ? oldIds : this.selectedIds();
     for (let a of this.bs.active.accounts)
     {
-      if (a.type == BookAccountType.Wallet)
+      if (a.type == BookAccountType.Wallet && !this.noWallet)
         wallets.push({ account: a, checked: ( ids.indexOf(a.id)>=0 ) });
       if (a.type == BookAccountType.Person)
         people.push({ account: a, checked: ( ids.indexOf(a.id)>=0 ) });
@@ -98,7 +104,7 @@ export class AccountSelectorPage {
   }
   add()
   {
-    let m = this.modal.create(AccountDetailPage, {modal: true});
+    let m = this.modal.create(AccountDetailPage, {modal: true, noWallet: this.noWallet});
     m.onDidDismiss(data => {
       if (data) {
         if (data.id) {
@@ -132,11 +138,11 @@ export class AccountDetailPage {
   form: FormGroup;
 
   model: BookAccount;
+  noWallet: boolean;
   new: boolean;
   type: string;
-  isModal: boolean;
-  constructor(private nav: NavController, private view: ViewController, private navParams: NavParams, private bs: BookService, private fb: FormBuilder) {
-    this.isModal = navParams.get('modal');
+  constructor(private view: ViewController, private navParams: NavParams, private bs: BookService, private fb: FormBuilder) {
+    this.noWallet = !!navParams.get('noWallet');
 
     let id = navParams.get('id');
     this.new = (id === undefined);
@@ -159,10 +165,6 @@ export class AccountDetailPage {
     this.model.type = parseInt(this.type);
     this.bs.active.replaceAccount(this.model);
 
-    if (this.isModal) {
-      this.view.dismiss({ id: this.model.id });
-    } else {
-      this.nav.pop();
-    }
+    this.view.dismiss({ id: this.model.id });
   }
 }

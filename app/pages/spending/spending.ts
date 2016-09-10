@@ -54,7 +54,9 @@ export class SpendingPage {
   }
   goSpending(id: string)
   {
-    this.modal.create(SpendingDetailPage, {'id': id}).present().then(() => { this.bs.save(); });
+    let m = this.modal.create(SpendingDetailPage, {id: id});
+    m.onDidDismiss((data) => { if (data) this.bs.save(); });
+    m.present();
   }
   deleteTransaction(id: string)
   {
@@ -63,11 +65,15 @@ export class SpendingPage {
   }
   newSpending()
   {
-    this.modal.create(SpendingDetailPage).present().then(() => { this.bs.save(); });
+    let m = this.modal.create(SpendingDetailPage);
+    m.onDidDismiss((data) => { if (data) this.bs.save(); });
+    m.present();
   }
   newTransfer()
   {
-    this.modal.create(SpendingDetailPage, {mode: 'transfer'}).present().then(() => { this.bs.save(); });
+    let m = this.modal.create(SpendingDetailPage, {mode: 'transfer'});
+    m.onDidDismiss((data) => { if (data) this.bs.save(); });
+    m.present();
   }
 }
 
@@ -164,7 +170,7 @@ export class SpendingDetailPage {
     this.model.time = moment(this.time).toDate();
     this.bs.active.replaceTransaction(this.model);
 
-    this.view.dismiss();
+    this.view.dismiss(true);
   }
 
 }

@@ -3,7 +3,7 @@ import {Book, BookTransaction} from './aabook/def';
 import {Injectable, Component, Input} from '@angular/core';
 import {Control, ControlGroup} from "@angular/common";
 import {BookAccountType, BookAccount} from './aabook/def';
-import {Storage, SqlStorage} from 'ionic-angular';
+import {Storage, SqlStorage, ToastController} from 'ionic-angular';
 
 export {Book, BookTransactionType, BookTransaction, BookAccountType, BookAccount} from './aabook/def';
 
@@ -13,18 +13,21 @@ export class BookService {
   private _storage: Storage;
   private _settings;
 
-  constructor() {
+  public loaded: Promise<void>;
+
+  constructor(private toastCtrl: ToastController) {
     this._storage = new Storage(SqlStorage);
     this._settings = {};
 
     this._active = new LocalBook();
-    this.loadSettings().then(() => {
-      if (this._settings.lastBook) {
-        this.loadBook(this._settings.lastBook).then(book => {
-          this._active = book;
-        });
-      }
-    });
+    this.loaded = 
+      this.loadSettings().then(() => {
+        if (this._settings.lastBook) {
+          this.loadBook(this._settings.lastBook).then(book => {
+            this._active = book;
+          });
+        }
+      });
   }
   get active(): Book {
     return this._active;
@@ -51,12 +54,20 @@ export class BookService {
     });
   }
   private saveBook(book: Book): Promise<void> {
+    console.log('Saving');
     return this._storage.set('aa2.books.' + book.id, JSON.stringify(book.freeze())).then(() => {
       if (this._settings.lastBook !== book.id)
       {
         this._settings.lastBook = book.id;
         this.saveSettings();
       }
+      console.log('Saved');
+    }).catch(e => {
+      console.log('Failed. ' + e);
+      this.toastCtrl.create({
+        message: 'Failed to save changes: ' + e,
+        position: 'bottom'
+      }).present();
     });
   }
 }

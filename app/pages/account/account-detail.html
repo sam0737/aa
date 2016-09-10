@@ -12,7 +12,7 @@
 
 <ion-content>
   <form [formGroup]="form" (ngSubmit)="save()">
-    <ion-list radio-group [(ngModel)]="type" name="type">
+    <ion-list radio-group [(ngModel)]="type" name="type" *ngIf="new">
       <ion-list-header>
         Account Type
       </ion-list-header>
@@ -20,11 +20,16 @@
         <ion-label>Person</ion-label>
         <ion-radio value="1"></ion-radio>
       </ion-item>
-      <ion-item>
+      <ion-item *ngIf="!noWallet">
         <ion-label>Wallet</ion-label>
         <ion-radio value="2"></ion-radio>
       </ion-item>
     </ion-list>
+    <ion-item *ngIf="!new">
+      <ion-label fixed>Type</ion-label>
+      <div item-content *ngIf="model.type == 1">Person</div>
+      <div item-content *ngIf="model.type == 2">Wallet</div>
+    </ion-item>
     <ion-item>
       <ion-label floating>Name</ion-label>
       <ion-input [formControl]="form.controls.name" [(ngModel)]="model.name" name="name"></ion-input>

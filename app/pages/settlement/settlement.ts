@@ -33,6 +33,8 @@ export class SettlementPage {
   {
     let model = trx.clone();
     model.memo = 'Balance settlement';
-    this.modal.create(SpendingDetailPage, {model: model}).present().then(() => { this.bs.save(); });
+    let m = this.modal.create(SpendingDetailPage, {model: model});
+    m.onDidDismiss((data) => { if (data) this.bs.save(); });
+    m.present();
   }
 }
