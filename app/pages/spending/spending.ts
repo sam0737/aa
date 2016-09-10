@@ -2,7 +2,8 @@ import {Component} from '@angular/core';
 import {ControlGroup, Validators} from '@angular/common';
 import {FORM_DIRECTIVES, FormBuilder, FormGroup} from '@angular/forms';
 import {NavController, NavParams} from 'ionic-angular';
-import {BookService, BookAccountsComponent, BookTransactionType, BookTransaction, BookAccount, AmountValidator} from './../../lib/aabook';
+import {BookService, BookAccountsComponent, BookTransactionType, BookTransaction, BookAccount, 
+  AmountValidator, ArrayNonZeroValidator} from './../../lib/aabook';
 import {ViewController, ModalController} from 'ionic-angular';
 
 import {AccountSelectorPage} from './../account/account';
@@ -118,8 +119,8 @@ export class SpendingDetailPage {
 
     this.form = fb.group({  
       'amount': ['', Validators.compose([Validators.required, AmountValidator])],
-      'payerIds': '',
-      'payeeIds': '',
+      'payerIds': [[], Validators.compose([ArrayNonZeroValidator])],
+      'payeeIds': [[], Validators.compose([ArrayNonZeroValidator])],
       'memo': '',
       'time': ['', Validators.compose([Validators.required])],
     });

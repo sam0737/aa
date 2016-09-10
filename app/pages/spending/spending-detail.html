@@ -19,14 +19,14 @@
       <ion-input [formControl]="form.controls.amount" [(ngModel)]="amount" name="amount"></ion-input>
     </ion-item>
     <div *ngIf="isSpending">
-      <input [formControl]="form.controls.payerIds" [(ngModel)]="model.payerIds" name="payerIds" type="hidden">
+      <input [formControl]="form.controls.payerIds" [(ngModel)]="payers" name="payerIds" type="hidden">
       <ion-item (click)="selectPayer()" detail-push>
         <ion-label fixed>Paid By</ion-label>
         <div item-content>
           <aa-accounts [accounts]="payers"></aa-accounts>
         </div>
       </ion-item>
-      <input [formControl]="form.controls.payeeIds" [(ngModel)]="model.payeeIds" name="payeeIds" type="hidden">
+      <input [formControl]="form.controls.payeeIds" [(ngModel)]="payees" name="payeeIds" type="hidden">
       <ion-item (click)="selectClients()" detail-push>
         <ion-label fixed>Served To</ion-label>
         <div item-content>
@@ -37,14 +37,14 @@
     <div *ngIf="!isSpending">
       <ion-item (click)="selectPayer()">
         <ion-label fixed>From</ion-label>
-        <input [formControl]="form.controls.payerIds" [(ngModel)]="model.payerIds" name="payerIds" type="hidden">
+        <input [formControl]="form.controls.payerIds" [(ngModel)]="payers" name="payerIds" type="hidden">
         <div item-content detail-push>
           <aa-accounts [accounts]="payers"></aa-accounts>
         </div>
       </ion-item>
       <ion-item (click)="selectPayee()">
         <ion-label fixed>To</ion-label>
-        <input [formControl]="form.controls.payeeIds" [(ngModel)]="model.payeeIds" name="payeeIds" type="hidden">
+        <input [formControl]="form.controls.payeeIds" [(ngModel)]="payees" name="payeeIds" type="hidden">
         <div item-content detail-push>
           <aa-accounts [accounts]="payees"></aa-accounts>
         </div>

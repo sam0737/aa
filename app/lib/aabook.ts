@@ -54,19 +54,17 @@ export class BookService {
     });
   }
   private saveBook(book: Book): Promise<void> {
-    console.log('Saving');
     return this._storage.set('aa2.books.' + book.id, JSON.stringify(book.freeze())).then(() => {
       if (this._settings.lastBook !== book.id)
       {
         this._settings.lastBook = book.id;
         this.saveSettings();
       }
-      console.log('Saved');
     }).catch(e => {
-      console.log('Failed. ' + e);
       this.toastCtrl.create({
         message: 'Failed to save changes: ' + e,
-        position: 'bottom'
+        position: 'bottom',
+        duration: 5000
       }).present();
     });
   }
@@ -97,4 +95,10 @@ export function BookAccountTypeValidator(control: Control): ValidationResult {
     return null;
   }
   return { bookAccountTypeValidator: true };
+}
+export function ArrayNonZeroValidator(control: Control): ValidationResult {
+  if (control.value.length > 0) {
+    return null;
+  }
+  return { arrayNonZeroValidator: true };
 }

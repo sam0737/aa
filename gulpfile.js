@@ -36,12 +36,18 @@ var tslint = require('ionic-gulp-tslint');
 
 var isRelease = argv.indexOf('--release') > -1;
 
+gulp.task('images', function() {
+    return gulp.src(['app/images/**/*'])
+        .pipe(gulp.dest('www/build/images'));
+});
+
 gulp.task('watch', ['clean'], function(done){
   runSequence(
-    ['sass', 'html', 'fonts', 'scripts'],
+    ['sass', 'html', 'fonts', 'scripts', 'images'],
     function(){
       gulpWatch('app/**/*.scss', function(){ gulp.start('sass'); });
       gulpWatch('app/**/*.html', function(){ gulp.start('html'); });
+      gulpWatch('app/images/**/*', function(){ gulp.start('images'); });
       buildBrowserify({ watch: true }).on('end', done);
     }
   );
@@ -49,7 +55,7 @@ gulp.task('watch', ['clean'], function(done){
 
 gulp.task('build', ['clean'], function(done){
   runSequence(
-    ['sass', 'html', 'fonts', 'scripts'],
+    ['sass', 'html', 'fonts', 'scripts', 'images'],
     function(){
       buildBrowserify({
         minify: isRelease,
