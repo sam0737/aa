@@ -14,7 +14,7 @@ export class AccountPage {
     this.wallets = [];
     this.people = [];
   }
-  ionViewDidEnter() {
+  ionViewWillEnter() {
     this.refreshList();
   }
 

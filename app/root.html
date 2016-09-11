@@ -2,18 +2,18 @@
   <img src="build/images/menu.png">
   <ion-content>
     <ion-list no-lines>
-      <button ion-item>
+      <button ion-item menuToggle (click)="goFile()">
         <ion-icon name="folder" item-left></ion-icon> Books
       </button>
-      <button ion-item>
+      <button ion-item menuToggle (click)="goSync()">
         <ion-icon name="share" item-left></ion-icon> Sync &amp; Share
       </button>
     </ion-list>
   </ion-content>
   <ion-footer>
-      <button ion-item>
-        <ion-icon name="information" item-left></ion-icon> About
-      </button>
+    <button ion-item menuToggle (click)="goAbout()">
+      <ion-icon name="information" item-left></ion-icon> About
+    </button>
   </ion-footer>
 </ion-menu>
 <ion-nav [root]="rootPage" #content swipe-back-enabled="false"></ion-nav>

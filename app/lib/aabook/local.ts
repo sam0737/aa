@@ -134,6 +134,7 @@ export class LocalBook implements Book {
   reconciles: BookTransaction[];
   constructor() {
     this.id = generateUuid();
+    this.name = '';
     this.transactions = [];
     this.accounts = [];
     this.reconciles = [];

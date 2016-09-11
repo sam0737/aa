@@ -29,8 +29,8 @@
     "tslint-ionic-rules": "0.0.4",
     "run-sequence": "1.1.5"
   },
-  "name": "aa",
-  "description": "aa: An Ionic project",
+  "name": "hellosam-aa",
+  "description": "All Average",
   "cordovaPlugins": [
     "cordova-plugin-device",
     "cordova-plugin-console",

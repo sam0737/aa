@@ -13,7 +13,7 @@ export class SettlementPage {
   constructor(private nav: NavController, private modal: ModalController, private bs: BookService) {
     this.list = [];
   }
-  ionViewDidEnter() {
+  ionViewWillEnter() {
     this.refreshList();
   }
   refreshList()

@@ -1,28 +1,29 @@
-import {Component} from '@angular/core';
-import {Platform, LoadingController, ionicBootstrap} from 'ionic-angular';
-import {StatusBar} from 'ionic-native';
+import {Component, ViewChild} from '@angular/core';
+import {Platform, ionicBootstrap, NavController} from 'ionic-angular';
+import {StatusBar, Splashscreen} from 'ionic-native';
 import {TabsPage} from './pages/tabs/tabs';
+import {FilePage} from './pages/file/file';
+import {SyncPage} from './pages/sync/sync';
+import {AboutPage} from './pages/about/about';
 import {BookService} from './lib/aabook';
+import * as moment from 'moment';
+import 'moment/min/locales.min';
 
 @Component({
-  templateUrl: 'build/root.html'
+  templateUrl: 'build/root.html',
+  providers: [NavController]
 })
 export class MyApp {
+  @ViewChild('content') nav: NavController;
   private rootPage: any;
 
-  constructor(private loadingCtrl: LoadingController, private platform: Platform, private bs: BookService) {
-    let loader = this.loadingCtrl.create({
-      content: "Please wait...",
-    });
-    let loaderShown = false;
-    // Show loader if platform ready needs more than 700ms
-    let loaderTimeout = setTimeout(() => { loaderShown = true; loader.present(); }, 700);
-
+  constructor(private platform: Platform, private bs: BookService) {
     platform.ready().then(() => {
+      moment.locale(window.navigator.userLanguage || window.navigator.language);
+
       bs.loaded.then(() => { 
         this.rootPage = TabsPage; 
-        clearTimeout(loaderTimeout);
-        if (loaderShown) loader.dismiss();
+        this.hideSplashScreen();
       });
 
       // Okay, so the platform is ready and our plugins are available.
@@ -30,6 +31,16 @@ export class MyApp {
       StatusBar.styleDefault();
     });
   }
+  private hideSplashScreen() {
+    if (Splashscreen) {
+      setTimeout(() => {
+        Splashscreen.hide();
+      }, 100);
+    }
+  }
+  goFile() { this.nav.push(FilePage); }
+  goSync() { this.nav.push(SyncPage); }
+  goAbout() { this.nav.push(AboutPage); }
 }
 
 ionicBootstrap(MyApp, [BookService]);

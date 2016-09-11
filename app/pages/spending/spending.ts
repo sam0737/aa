@@ -4,6 +4,7 @@ import {FORM_DIRECTIVES, FormBuilder, FormGroup} from '@angular/forms';
 import {NavController, NavParams} from 'ionic-angular';
 import {BookService, BookAccountsComponent, BookTransactionType, BookTransaction, BookAccount, 
   AmountValidator, ArrayNonZeroValidator} from './../../lib/aabook';
+import {DateFormatPipe} from './../../lib/moment-pipe';
 import {ViewController, ModalController} from 'ionic-angular';
 
 import {AccountSelectorPage} from './../account/account';
@@ -16,7 +17,8 @@ interface SpendingItemView {
 
 @Component({
   templateUrl: 'build/pages/spending/spending.html',
-  directives: [BookAccountsComponent]
+  directives: [BookAccountsComponent],
+  pipes: [DateFormatPipe]
 })
 export class SpendingPage {
   list: any;
@@ -26,7 +28,7 @@ export class SpendingPage {
   constructor(private nav: NavController, private modal: ModalController, private bs: BookService) {
     this.list = [];
   }
-  ionViewDidEnter() {
+  ionViewWillEnter() {
     this.refreshList();
   }
   refreshList()

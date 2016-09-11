@@ -37,6 +37,12 @@ export interface BookAccount {
   clone(): BookAccount;
 }
 
+export interface BookAbstract {
+  id: string;
+  name: string;
+  modified: Date;
+}
+
 export interface Book {
   id: string;
   name: string;
