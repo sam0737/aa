@@ -8,7 +8,15 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
+  <ion-card *ngIf="list.length > 0">
+    <ion-card-header>
+      Settle the book.
+    </ion-card-header>
+    <ion-card-content>
+      For everyone to pay for their bills, carry out the transfers as follow.
+    </ion-card-content>
+  </ion-card>
+  <ion-list *ngIf="list.length > 0">
     <ion-item *ngFor="let i of list" (click)="goSettlement(i.trx)">
       <span class="transfer-amount">{{ i.trx.amount | number:'1.2-2' }}</span>
       <div style="float: right">

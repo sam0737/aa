@@ -39,8 +39,7 @@ export class FilePage {
   newBook(id)
   {
     let book = this.bs.newBook();
-    this.bs.generateNewBookName('Book - ' + moment().format('L')).then((name) => {
-      book.name = name;
+    this.bs.assignNewName(book).then(() => {
       this.bs.active = book;
       this.bs.save();
       this.nav.pop();
@@ -59,9 +58,9 @@ export class FilePage {
     this.bs.loadBook(id).then(book => {
       if (book != null) {
         this.bs.generateNewBookName(book.name).then((newName) => {
-          let newBook = this.bs.newBook();
-          let id = newBook.id;
-          newBook.thaw(book.freeze());
+          let newBookHolder = this.bs.newBook();
+          let id = newBookHolder.id;
+          let newBook = newBookHolder.thaw(book.freeze());
           newBook.name = newName;
           newBook.id = id;
           return this.bs.saveBook(newBook);

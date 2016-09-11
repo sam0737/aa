@@ -22,6 +22,6 @@ export class TabsPage {
   }
   ionViewWillEnter() {
     // Reset tab after book is loaded
-    this.tabs.select(1).then(() => this.tabs.select(0));
+    this.tabs.getSelected().getActive().fireWillEnter();
   }
 }

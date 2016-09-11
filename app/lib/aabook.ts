@@ -31,7 +31,10 @@ export class BookService {
                 this._active = book;
             });
           } else {
-            this.markActiveAsCurrent();
+            this.assignNewName(this.active).then(() => {
+              this.save();
+              this.markActiveAsCurrent();
+            });
           }
         }).catch(e => {
           this.loadFailure(e);
@@ -137,6 +140,12 @@ export class BookService {
     return this.storage.query('DELETE FROM books WHERE id=?', [id]);
   }
     
+  assignNewName(book: Book): Promise<void> {
+    return this.generateNewBookName('Book - ' + moment().format('L')).then((name) => {
+      book.name = name;
+    });
+  }
+
   generateNewBookName(oldName: string, iteration = 1): Promise<string> {
     oldName = oldName.replace(/ \([0-9]+\)$/, '');
     let newName = iteration == 1 ? oldName : oldName + ' (' + iteration + ')';

@@ -16,7 +16,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
+  <ion-list *ngIf="list.length > 0">
     <div *ngFor="let g of list">
       <ion-item-divider light>{{ g.header | momentDateFormat:'LL' }}</ion-item-divider>
       <ion-item-sliding *ngFor="let i of g.details">

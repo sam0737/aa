@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {Platform, ionicBootstrap, NavController} from 'ionic-angular';
+import {Platform, ionicBootstrap, Menu, NavController, ModalController} from 'ionic-angular';
 import {StatusBar, Splashscreen} from 'ionic-native';
 import {TabsPage} from './pages/tabs/tabs';
 import {FilePage} from './pages/file/file';
@@ -15,9 +15,10 @@ import 'moment/min/locales.min';
 })
 export class MyApp {
   @ViewChild('content') nav: NavController;
+  @ViewChild('menu') menu: Menu;
   private rootPage: any;
 
-  constructor(private platform: Platform, private bs: BookService) {
+  constructor(private platform: Platform, private modal: ModalController, private bs: BookService) {
     platform.ready().then(() => {
       moment.locale(window.navigator.userLanguage || window.navigator.language);
 

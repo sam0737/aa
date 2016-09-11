@@ -115,8 +115,10 @@ export class SpendingDetailPage {
     if (this.new && this.isSpending)
     {
       let lt = this.bs.active.getLatestSpendingTransaction();
-      if (lt != null)
+      if (lt != null) {
         this.model.payerIds = lt.payerIds.slice();
+        this.model.payeeIds = lt.payeeIds.slice();
+      }
     }
 
     this.form = fb.group({  
