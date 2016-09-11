@@ -1,0 +1,6 @@
+<div (click)="open()">{{ ("language." + language) | translate }}</div>
+<ion-select interface="action-sheet" [hidden]="true" #select
+  cancelText="{{ 'language.cancel' | translate }}" style="max-width: 100% !important;" 
+  [(ngModel)]="language" (ngModelChange)="change()">
+  <ion-option *ngFor="let i of languages" [value]="i">{{ ("language." + i) | translate }}</ion-option>
+</ion-select>

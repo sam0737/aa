@@ -3,10 +3,10 @@
     <button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Books</ion-title>
+    <ion-title>{{ "file.title" | translate }}</ion-title>
     <ion-buttons end>
       <button (click)="newBook()">
-        <ion-icon name="add"></ion-icon>
+        <ion-icon name="add"></ion-icon> {{ "file.new_book" | translate }}
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -14,22 +14,22 @@
 
 <ion-content>
   <ion-list>
-    <ion-item-divider light>This Book</ion-item-divider>
+    <ion-item-divider light>{{ "file.this_book" | translate }}</ion-item-divider>
     <ion-item>
-      <ion-label floating>Name</ion-label>
+      <ion-label floating>{{ "file.name" | translate }}</ion-label>
       <ion-input [(ngModel)]="model.name" name="name"></ion-input>
     </ion-item>
-    <ion-item-divider light>Books</ion-item-divider>
+    <ion-item-divider light>{{ "file.all_book" | translate }}</ion-item-divider>
     <ion-item-sliding *ngFor="let i of list">
       <ion-item (click)="loadBook(i.id)">
         <p style="white-space: pre-wrap">{{ i.name }}</p>
         <p style="float: right" *ngIf="i.modified != null"><small>{{ i.modified | momentDateFormat:'LLL' }}</small></p>
-        <p style="float: right" *ngIf="i.modified == null"><small>Currently opened</small></p>
+        <p style="float: right" *ngIf="i.modified == null"><small>{{ "file.currently_opened" | translate }}</small></p>
         <div style="clear: both"></div>
       </ion-item>
       <ion-item-options>
-        <button light (click)="cloneBook(i.id)"><ion-icon name="copy"></ion-icon> Clone</button>
-        <button danger (click)="deleteBook(i.id)" *ngIf="i.modified != null"><ion-icon name="trash"></ion-icon> Delete</button>
+        <button light (click)="cloneBook(i.id)"><ion-icon name="copy"></ion-icon> {{ "file.clone_book" | translate }}</button>
+        <button danger (click)="deleteBook(i.id)" *ngIf="i.modified != null"><ion-icon name="trash"></ion-icon> {{ "file.delete_book" | translate }}</button>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>

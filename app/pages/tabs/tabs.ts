@@ -2,10 +2,12 @@ import {Component, ViewChild} from '@angular/core';
 import {SpendingPage} from '../spending/spending';
 import {AccountPage} from '../account/account';
 import {SettlementPage} from '../settlement/settlement';
+import {TranslatePipe} from "ng2-translate/ng2-translate";
 import {Tabs} from 'ionic-angular';
 
 @Component({
-  templateUrl: 'build/pages/tabs/tabs.html'
+  templateUrl: 'build/pages/tabs/tabs.html',
+  pipes: [TranslatePipe]
 })
 export class TabsPage {
   @ViewChild("tabs") tabs: Tabs;

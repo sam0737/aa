@@ -3,16 +3,20 @@
   <ion-content>
     <ion-list no-lines>
       <button ion-item menuToggle (click)="goFile()">
-        <ion-icon name="folder" item-left></ion-icon> Books
+        <ion-icon name="folder" item-left></ion-icon> {{ "menu.file" | translate }}
       </button>
       <button ion-item menuToggle (click)="goSync()">
-        <ion-icon name="share" item-left></ion-icon> Sync &amp; Share
+        <ion-icon name="share" item-left></ion-icon> {{ "menu.sync" | translate }}
       </button>
+      <ion-item>
+        <ion-icon name="chatbubbles" item-left></ion-icon>
+        <language-select item-content></language-select>
+      </ion-item>
     </ion-list>
   </ion-content>
   <ion-footer>
     <button ion-item menuToggle (click)="goAbout()">
-      <ion-icon name="information" item-left></ion-icon> About
+      <ion-icon name="information" item-left></ion-icon> {{ "menu.about" | translate }}
     </button>
   </ion-footer>
 </ion-menu>

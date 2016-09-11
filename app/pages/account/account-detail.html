@@ -5,8 +5,12 @@
         <ion-icon name="close"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title *ngIf="new">New Account</ion-title>
-    <ion-title *ngIf="!new">Account Detail</ion-title>
+    <ion-title *ngIf="new">{{ "account_detail.new_account" | translate }}</ion-title>
+    <ion-title *ngIf="!new">{{ "account_detail.old_account" | translate }}</ion-title>
+    <ion-buttons end>
+      <button *ngIf="new" (click)="save()" [disabled]="!form.valid">{{ "account_detail.create" | translate }}</button>
+      <button *ngIf="!new" (click)="save()" [disabled]="!form.valid">{{ "account_detail.save" | translate }}</button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -14,29 +18,25 @@
   <form [formGroup]="form" (ngSubmit)="save()">
     <ion-list radio-group [(ngModel)]="type" name="type" *ngIf="new">
       <ion-list-header>
-        Account Type
+        {{ "account_detail.account_type" | translate }}
       </ion-list-header>
       <ion-item>
-        <ion-label>Person</ion-label>
+        <ion-label>{{ "account_detail.type_person" | translate }}</ion-label>
         <ion-radio value="1"></ion-radio>
       </ion-item>
       <ion-item *ngIf="!noWallet">
-        <ion-label>Wallet</ion-label>
+        <ion-label>{{ "account_detail.type_wallet" | translate }}</ion-label>
         <ion-radio value="2"></ion-radio>
       </ion-item>
     </ion-list>
     <ion-item *ngIf="!new">
-      <ion-label fixed>Type</ion-label>
-      <div item-content *ngIf="model.type == 1">Person</div>
-      <div item-content *ngIf="model.type == 2">Wallet</div>
+      <ion-label fixed>{{ "account_detail.account_type" | translate }}</ion-label>
+      <div item-content *ngIf="model.type == 1">{{ "account_detail.type_person" | translate }}</div>
+      <div item-content *ngIf="model.type == 2">{{ "account_detail.type_wallet" | translate }}</div>
     </ion-item>
     <ion-item>
-      <ion-label floating>Name</ion-label>
-      <ion-input [formControl]="form.controls.name" [(ngModel)]="model.name" name="name"></ion-input>
+      <ion-label floating>{{ "account_detail.name" | translate }}</ion-label>
+      <ion-input [formControl]="form.controls.name" [(ngModel)]="model.name" name="name" #first></ion-input>
     </ion-item>
   </form>
-  <ion-footer>
-    <button *ngIf="new" block (click)="save()" [disabled]="!form.valid">Create</button>
-    <button *ngIf="!new" block (click)="save()" [disabled]="!form.valid">Save</button>
-  </ion-footer>
 </ion-content>

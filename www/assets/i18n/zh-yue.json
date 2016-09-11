@@ -1,0 +1,99 @@
+{
+  "menu": {
+    "file": "帳薄",
+    "sync": "同步與共享",
+    "about": "關於"
+  },
+  "tabs": {
+    "transactions": "交易",
+    "accounts": "賬號",
+    "settlements": "埋單"
+  },
+  "file": {
+    "title": "帳薄",
+    "new_book": "新帳薄",
+    "this_book": "當前帳薄",
+    "name": "標題",
+    "all_book": "所有帳薄",
+    "currently_opened": "而家開緊嘅",
+    "clone_book": "複製",
+    "delete_book": "刪除"
+  },
+  "sync": {
+    "title": "同步與共享",
+    "na_header": "未用得住",
+    "na_text": "呢個功能會喺第二日先整好，敬請留意。"
+  },
+  "language": {
+    "auto": "自動偵測",
+    "cancel": "取消"
+  },
+  "about": {
+    "title": "關於",
+    "app_name": "AA",
+    "app_version": "v{{ version }}",
+    "aa_explain": "AA制，聽講係\"All Average\"嘅簡稱。",
+    "author": "Sam Wong © 2016"
+  },
+  "spending": {
+    "title": "交易",
+    "delete_trx": "刪除",
+    "no_trx_header": "無任何交易記錄",
+    "no_trx_text_1": "請入一啲",
+    "no_trx_text_2": "使費",
+    "no_trx_text_3": "或",
+    "no_trx_text_4": "轉賬",
+    "no_trx_text_5": "記錄。"
+  },
+  "spending_detail": {
+    "new_spending": "新增使費記錄",
+    "old_spending": "使費記錄",
+    "new_transfer": "新增轉賬記錄",
+    "old_transfer": "轉賬記錄",
+    "amount": "金額",
+    "spending_payer": "支付方",
+    "spending_payee": "收益人",
+    "transfer_payer": "付款人",
+    "transfer_payee": "收款人",
+    "memo": "備忘",
+    "time": "時間",
+    "create": "新增",
+    "save": "儲存"
+  },
+  "account": {
+    "title": "賬號",
+    "wallets": "錢包",
+    "people": "人",
+    "no_account_header": "無任何賬號",
+    "no_account_text": "賬號會喺輸入交易記錄嘅時候創建嘅。"
+  },
+  "account_selector": {
+    "select_payer": "選擇付款方",
+    "select_payee": "選擇收款方",
+    "select_clients": "選擇受益人",
+    "add_account": "新增賬號",
+    "wallets": "銀包",
+    "people": "人",
+    "no_account_header": "無任何賬號",
+    "no_account_text_1": "請",
+    "no_account_text_2": "加一個",
+    "no_account_text_3": "。"
+  },
+  "account_detail": {
+    "new_account": "新增賬號",
+    "old_account": "賬號",
+    "account_type": "類型",
+    "type_wallet": "銀包",
+    "type_person": "個人",
+    "name": "名字",
+    "create": "新增",
+    "save": "儲存"
+  },
+  "settlement": {
+    "title": "埋單",
+    "settle_header": "埋單",
+    "settle_text": "為咗等大家都夾返自己嗰一份錢，請按照下面嘅示做轉賬。",
+    "done_header": "單已埋",
+    "done_text": "所有交易已經攤平。你可以在交易頁登記新嘅使費。"
+  }
+}

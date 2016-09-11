@@ -2,11 +2,12 @@ import {Component} from '@angular/core';
 import {BookService, BookAbstract, Book} from './../../lib/aabook';
 import {ViewController, NavController, ModalController, ToastController} from 'ionic-angular';
 import {DateFormatPipe} from './../../lib/moment-pipe';
+import {TranslatePipe} from "ng2-translate/ng2-translate";
 import * as moment from 'moment';
 
 @Component({
   templateUrl: 'build/pages/file/file.html',
-  pipes: [DateFormatPipe]
+  pipes: [DateFormatPipe, TranslatePipe]
 })
 export class FilePage {
   list: (Book | BookAbstract)[];

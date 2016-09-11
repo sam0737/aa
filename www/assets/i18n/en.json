@@ -1,0 +1,104 @@
+{
+  "menu": {
+    "file": "Books",
+    "sync": "Sync & Share",
+    "about": "About"
+  },
+  "tabs": {
+    "transactions": "Transactions",
+    "accounts": "Accounts",
+    "settlements": "Settlements"
+  },
+  "file": {
+    "title": "Books",
+    "new_book": "New Book",
+    "this_book": "This Book",
+    "name": "Title",
+    "all_book": "Books",
+    "currently_opened": "Currently opened",
+    "clone_book": "Clone",
+    "delete_book": "Delete"
+  },
+  "sync": {
+    "title": "Sync & Share",
+    "na_header": "Not Available",
+    "na_text": "This feature is not available yet! Stay tuned!"
+  },
+  "language": {
+    "auto": "Auto Detect",
+    "cancel": "Cancel",
+    "en": "English",
+    "zh-yue": "中文（廣東話）",
+    "zh-tw": "中文（正體）",
+    "zh-cn": "中文（简体）",
+    "ja": "日本語"
+  },
+  "about": {
+    "title": "About",
+    "app_name": "AA",
+    "app_version": "v{{ version }}",
+    "aa_explain": "AA stands for \"All Average\"",
+    "author": "Sam Wong © 2016"
+  },
+  "spending": {
+    "title": "Transactions",
+    "delete_trx": "Delete",
+    "no_trx_header": "There are no transactions",
+    "no_trx_text_1": "You might want to add a ",
+    "no_trx_text_2": " spending",
+    "no_trx_text_3": " or ",
+    "no_trx_text_4": " transfer",
+    "no_trx_text_5": " entry."
+  },
+  "spending_detail": {
+    "new_spending": "New Spending",
+    "old_spending": "Spending Detail",
+    "new_transfer": "New Transfer",
+    "old_transfer": "Transfer Detail",
+    "amount": "Amount",
+    "spending_payer": "Paid By",
+    "spending_payee": "Served To",
+    "transfer_payer": "From",
+    "transfer_payee": "To",
+    "memo": "Memo",
+    "time": "Time",
+    "create": "Create",
+    "save": "Save"
+  },
+  "account": {
+    "title": "Accounts",
+    "wallets": "Wallets",
+    "people": "People",
+    "no_account_header": "There are no accounts",
+    "no_account_text": "Accounts are created when you create transaction."
+  },
+  "account_selector": {
+    "select_payer": "Select Payer",
+    "select_payee": "Select Payee",
+    "select_clients": "Select Clients",
+    "add_account": "Add Account",
+    "wallets": "Wallets",
+    "people": "People",
+    "no_account_header": "There are no accounts",
+    "no_account_text_1": "Please ",
+    "no_account_text_2": " add one",
+    "no_account_text_3": "."
+  },
+  "account_detail": {
+    "new_account": "New Account",
+    "old_account": "Account Detail",
+    "account_type": "Account Type",
+    "type_wallet": "Wallet",
+    "type_person": "Person",
+    "name": "name",
+    "create": "Create",
+    "save": "Save"
+  },
+  "settlement": {
+    "title": "Settlements",
+    "settle_header": "Settle the book",
+    "settle_text": "To have everyone paying for what they entitled, carry out the transfers as follow.",
+    "done_header": "Everything is settled",
+    "done_text": "All transactions are balanced. You might want to enter more in the Transactions tab."
+  }
+}

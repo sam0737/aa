@@ -51,6 +51,10 @@ export class BookService {
     }
   }
 
+  get settings() {
+    return this._settings;
+  }
+
   save(): Promise<void> {
     return this.saveBook(this.active);
   }
@@ -107,7 +111,7 @@ export class BookService {
     });
   }
 
-  private saveSettings(): Promise<void> {
+  saveSettings(): Promise<void> {
     return this.storage.set('aa2.settings', JSON.stringify(this._settings));
   }
 

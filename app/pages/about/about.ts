@@ -1,10 +1,12 @@
 import {Component} from '@angular/core';
 import {BookService, BookAbstract, Book} from './../../lib/aabook';
+import {TranslatePipe} from "ng2-translate/ng2-translate";
 
 let VERSION = '0.1';
 
 @Component({
-  templateUrl: 'build/pages/about/about.html'
+  templateUrl: 'build/pages/about/about.html',
+  pipes: [TranslatePipe]
 })
 export class AboutPage {
   version: string = VERSION;

@@ -3,17 +3,17 @@
     <button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Settlements</ion-title>
+    <ion-title>{{ "settlement.title" | translate }}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
   <ion-card *ngIf="list.length > 0">
     <ion-card-header>
-      Settle the book.
+      {{ "settlement.settle_header" | translate }}
     </ion-card-header>
     <ion-card-content>
-      For everyone to pay for their bills, carry out the transfers as follow.
+      {{ "settlement.settle_text" | translate }}
     </ion-card-content>
   </ion-card>
   <ion-list *ngIf="list.length > 0">
@@ -28,10 +28,10 @@
   </ion-list>
   <ion-card *ngIf="list.length == 0">
     <ion-card-header>
-      Everything is settled.
+      {{ "settlement.done_header" | translate }}
     </ion-card-header>
     <ion-card-content>
-      All transactions are balanced. You might want to enter more?
+      {{ "settlement.done_text" | translate }}
     </ion-card-content>
   </ion-card>
 </ion-content>

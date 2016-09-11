@@ -3,7 +3,7 @@
     <button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>About</ion-title>
+    <ion-title>{{ "about.title" | translate }}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -12,9 +12,9 @@
     <ion-row>
       <ion-col>
         <img src="build/images/icon.png" width="25%">
-        <h1 no-padding no-margin>AA <small>v{{ version }}</small></h1>
-        <h4>AA stands for "All Average"</h4>
-        <small>Sam Wong &copy; 2016</small>
+        <h1 no-padding no-margin>{{ "about.app_name" | translate }} <small>{{ "about.app_version" | translate:{"version": version} }}</small></h1>
+        <h4>{{ "about.aa_explain" | translate }}</h4>
+        <small>{{ "about.author" | translate }}</small>
       </ion-col>
     </ion-row>
   </ion-grid>

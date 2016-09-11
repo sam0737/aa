@@ -3,10 +3,12 @@ import {NavController, NavParams} from 'ionic-angular';
 import {BookService, BookAccountsComponent, BookTransactionType, BookTransaction, BookAccount, AmountValidator} from './../../lib/aabook';
 import {SpendingDetailPage} from './../spending/spending';
 import {ViewController, ModalController} from 'ionic-angular';
+import {TranslatePipe} from "ng2-translate/ng2-translate";
 
 @Component({
   templateUrl: 'build/pages/settlement/settlement.html',
-  directives: [BookAccountsComponent]
+  directives: [BookAccountsComponent],
+  pipes: [TranslatePipe]
 })
 export class SettlementPage {
   list: any;

@@ -1,11 +1,13 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {ControlGroup, Validators} from '@angular/common';
 import {FORM_DIRECTIVES, FormBuilder, FormGroup} from '@angular/forms';
 import {NavController, NavParams, ViewController, ModalController} from 'ionic-angular';
 import {BookService, BookAccountType, BookAccount, BookAccountTypeValidator} from './../../lib/aabook';
+import {TranslatePipe} from "ng2-translate/ng2-translate";
 
 @Component({
-  templateUrl: 'build/pages/account/account.html'
+  templateUrl: 'build/pages/account/account.html',
+  pipes: [TranslatePipe]
 })
 export class AccountPage {
   wallets: any[];
@@ -36,7 +38,7 @@ export class AccountPage {
   {
     let m = this.modal.create(AccountDetailPage, {modal: true});
     m.onDidDismiss((data) => { if (data) this.bs.save(); });
-    m.present();;
+    m.present();
   }
   goAccount(id: string)
   {
@@ -47,7 +49,8 @@ export class AccountPage {
 }
 
 @Component({
-  templateUrl: 'build/pages/account/account-selector.html'
+  templateUrl: 'build/pages/account/account-selector.html',
+  pipes: [TranslatePipe]
 })
 export class AccountSelectorPage {
   wallets: any[];
@@ -132,10 +135,13 @@ export class AccountSelectorPage {
 }
 
 @Component({
-  templateUrl: 'build/pages/account/account-detail.html'
+  templateUrl: 'build/pages/account/account-detail.html',
+  pipes: [TranslatePipe]
 })
 export class AccountDetailPage {
   form: FormGroup;
+  @ViewChild('first') first;
+  focusDone: boolean;
 
   model: BookAccount;
   noWallet: boolean;
@@ -157,6 +163,14 @@ export class AccountDetailPage {
       'name': [this.model.name, Validators.compose([Validators.required])],
     });
   }
+
+  ionViewWillEnter() {
+    if (this.focusDone) return;
+    if (!this.new) return;
+    this.first.setFocus();
+    this.focusDone = true;
+  }
+
   dismiss() {
     this.view.dismiss();
   }

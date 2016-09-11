@@ -3,7 +3,7 @@
     <button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Transactions</ion-title>
+    <ion-title>{{ "spending.title" | translate }}</ion-title>
     <ion-buttons end>
       <button (click)="newSpending()">
         <ion-icon name="pricetag"></ion-icon>
@@ -40,10 +40,14 @@
   </ion-list>
   <ion-card *ngIf="list.length == 0">
     <ion-card-header>
-      There are no transactions.
+    {{ "spending.no_trx_header" | translate }}
     </ion-card-header>
     <ion-card-content>
-      You might want to add a <a (click)="newSpending()"><ion-icon name="pricetag"></ion-icon> spending</a> or <a (click)="newTransfer()"><ion-icon name="swap"></ion-icon> transfer</a> entry.
+    {{ "spending.no_trx_text_1" | translate 
+    }}<a (click)="newSpending()"><ion-icon name="pricetag"></ion-icon>{{ "spending.no_trx_text_2" | translate }}</a>{{ 
+    "spending.no_trx_text_3" | translate 
+    }}<a (click)="newTransfer()"><ion-icon name="swap"></ion-icon>{{ "spending.no_trx_text_4" | translate }}</a>{{
+    "spending.no_trx_text_5" | translate }}
     </ion-card-content>
   </ion-card>
 </ion-content>

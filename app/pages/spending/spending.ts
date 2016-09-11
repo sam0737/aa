@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {ControlGroup, Validators} from '@angular/common';
 import {FORM_DIRECTIVES, FormBuilder, FormGroup} from '@angular/forms';
 import {NavController, NavParams} from 'ionic-angular';
@@ -6,6 +6,7 @@ import {BookService, BookAccountsComponent, BookTransactionType, BookTransaction
   AmountValidator, ArrayNonZeroValidator} from './../../lib/aabook';
 import {DateFormatPipe} from './../../lib/moment-pipe';
 import {ViewController, ModalController} from 'ionic-angular';
+import {TranslatePipe} from "ng2-translate/ng2-translate";
 
 import {AccountSelectorPage} from './../account/account';
 import * as moment from 'moment';
@@ -18,7 +19,7 @@ interface SpendingItemView {
 @Component({
   templateUrl: 'build/pages/spending/spending.html',
   directives: [BookAccountsComponent],
-  pipes: [DateFormatPipe]
+  pipes: [DateFormatPipe, TranslatePipe]
 })
 export class SpendingPage {
   list: any;
@@ -82,11 +83,15 @@ export class SpendingPage {
 
 @Component({
   templateUrl: 'build/pages/spending/spending-detail.html',
-  directives: [BookAccountsComponent]
+  directives: [BookAccountsComponent],
+  pipes: [TranslatePipe]
 })
 export class SpendingDetailPage {
   form: FormGroup;
   amount: string;
+
+  @ViewChild('first') first;
+  focusDone: boolean;
 
   model: BookTransaction;
   isSpending: boolean;
@@ -132,6 +137,14 @@ export class SpendingDetailPage {
     this.time = moment(this.model.time).local().format();
     this.refreshPayersAndPayees();
   }
+
+  ionViewWillEnter() {
+    if (this.focusDone) return;
+    if (!this.new) return;
+    this.first.setFocus();
+    this.focusDone = true;
+  }
+
   refreshPayersAndPayees() {
     this.payers = this.model.payerIds.map(i => this.bs.active.getAccount(i));
     this.payees = this.model.payeeIds.map(i => this.bs.active.getAccount(i));

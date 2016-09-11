@@ -1,3 +1,4 @@
+import {HTTP_PROVIDERS, Http} from '@angular/http';
 import {Component, ViewChild} from '@angular/core';
 import {Platform, ionicBootstrap, Menu, NavController, ModalController} from 'ionic-angular';
 import {StatusBar, Splashscreen} from 'ionic-native';
@@ -6,19 +7,24 @@ import {FilePage} from './pages/file/file';
 import {SyncPage} from './pages/sync/sync';
 import {AboutPage} from './pages/about/about';
 import {BookService} from './lib/aabook';
+import {BookLanguageService, LanguageSelectComponent} from './lib/aalanguage';
+import {TRANSLATE_PROVIDERS, TranslateService, TranslatePipe, TranslateLoader, TranslateStaticLoader} from 'ng2-translate/ng2-translate';
 import * as moment from 'moment';
 import 'moment/min/locales.min';
 
 @Component({
   templateUrl: 'build/root.html',
-  providers: [NavController]
+  providers: [NavController],
+  directives: [LanguageSelectComponent],
+  pipes: [TranslatePipe]
 })
 export class MyApp {
+test = 'auto';
   @ViewChild('content') nav: NavController;
   @ViewChild('menu') menu: Menu;
   private rootPage: any;
 
-  constructor(private platform: Platform, private modal: ModalController, private bs: BookService) {
+  constructor(private platform: Platform, private modal: ModalController, private bs: BookService, private bls: BookLanguageService) {
     platform.ready().then(() => {
       moment.locale(window.navigator.userLanguage || window.navigator.language);
 
@@ -44,4 +50,13 @@ export class MyApp {
   goAbout() { this.nav.push(AboutPage); }
 }
 
-ionicBootstrap(MyApp, [BookService]);
+ionicBootstrap(MyApp, [
+  BookService, 
+  BookLanguageService,
+  { 
+    provide: TranslateLoader,
+    useFactory: (http: Http) => new TranslateStaticLoader(http, 'assets/i18n', '.json'),
+    deps: [Http]
+  },
+  TranslateService
+]);
