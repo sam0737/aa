@@ -8,16 +8,18 @@
       <button ion-item menuToggle (click)="goSync()">
         <ion-icon name="share" item-left></ion-icon> {{ "menu.sync" | translate }}
       </button>
+    </ion-list>
+  </ion-content>
+  <ion-footer>
+    <ion-list no-lines>
       <ion-item>
         <ion-icon name="chatbubbles" item-left></ion-icon>
         <language-select item-content></language-select>
       </ion-item>
+      <button ion-item menuToggle (click)="goAbout()">
+        <ion-icon name="information" item-left></ion-icon> {{ "menu.about" | translate }}
+      </button>
     </ion-list>
-  </ion-content>
-  <ion-footer>
-    <button ion-item menuToggle (click)="goAbout()">
-      <ion-icon name="information" item-left></ion-icon> {{ "menu.about" | translate }}
-    </button>
   </ion-footer>
 </ion-menu>
 <ion-nav [root]="rootPage" #content swipe-back-enabled="false"></ion-nav>
