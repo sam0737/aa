@@ -62,7 +62,7 @@
   },
   "account": {
     "title": "賬號",
-    "wallets": "錢包",
+    "wallets": "銀包",
     "people": "人",
     "no_account_header": "無任何賬號",
     "no_account_text": "賬號會喺輸入交易記錄嘅時候創建嘅。"
@@ -77,7 +77,8 @@
     "no_account_header": "無任何賬號",
     "no_account_text_1": "請",
     "no_account_text_2": "加一個",
-    "no_account_text_3": "。"
+    "no_account_text_3": "。",
+    "select": "揀選"
   },
   "account_detail": {
     "new_account": "新增賬號",

@@ -82,7 +82,8 @@
     "no_account_header": "There are no accounts",
     "no_account_text_1": "Please ",
     "no_account_text_2": " add one",
-    "no_account_text_3": "."
+    "no_account_text_3": ".",
+    "select": "Select"
   },
   "account_detail": {
     "new_account": "New Account",
