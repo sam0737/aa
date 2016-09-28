@@ -65,6 +65,7 @@ export class SpendingPage {
   deleteTransaction(id: string)
   {
     this.bs.active.removeTransaction(id);
+    this.bs.save();
     this.refreshList();
   }
   newSpending()
@@ -128,8 +129,8 @@ export class SpendingDetailPage {
 
     this.form = fb.group({  
       'amount': ['', Validators.compose([Validators.required, AmountValidator])],
-      'payerIds': [[], Validators.compose([ArrayNonZeroValidator])],
-      'payeeIds': [[], Validators.compose([ArrayNonZeroValidator])],
+      'payers': [[], Validators.compose([ArrayNonZeroValidator])],
+      'payees': [[], Validators.compose([ArrayNonZeroValidator])],
       'memo': '',
       'time': ['', Validators.compose([Validators.required])],
     });
@@ -144,7 +145,6 @@ export class SpendingDetailPage {
     this.first.setFocus();
     this.focusDone = true;
   }
-
   refreshPayersAndPayees() {
     this.payers = this.model.payerIds.map(i => this.bs.active.getAccount(i));
     this.payees = this.model.payeeIds.map(i => this.bs.active.getAccount(i));
