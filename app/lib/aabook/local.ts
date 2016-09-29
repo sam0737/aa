@@ -85,23 +85,27 @@ export class LocalBookAccount implements BookAccount {
 
   type: BookAccountType;
   name: string;
-  balanceRaw: number;
+  openingBalanceRaw: number;
+  spendingTotalRaw: number;     // Calculated
+  transactionTotalRaw: number;  // Calculated
 
   constructor() {
     this.id = generateUuid();
     this.modified = new Date();
     this.type = BookAccountType.Person;
     this.name = '';
-    this.balanceRaw = 0;
+    this.openingBalanceRaw = 0;
+    this.spendingTotalRaw = 0;
+    this.transactionTotalRaw = 0;
   }
 
-  get balance(): number {
-    return this.balanceRaw / 100;
-  }
-
-  set balance(value: number) {
-    this.balanceRaw = Math.round(value * 100);
-  }
+  get openingBalance(): number { return this.openingBalanceRaw / 100; }
+  set openingBalance(value: number) { this.openingBalanceRaw = Math.round(value * 100); }
+  get spendingTotal(): number { return this.spendingTotalRaw / 100; }
+  set spendingTotal(value: number) { this.spendingTotalRaw = Math.round(value * 100); }
+  get transactionTotal(): number { return this.transactionTotalRaw / 100; }
+  set transactionTotal(value: number) { this.transactionTotalRaw = Math.round(value * 100); }
+  get closingBalance(): number { return (this.openingBalanceRaw + this.transactionTotalRaw) / 100; }
 
   freeze(): Object {
     return {
@@ -109,7 +113,7 @@ export class LocalBookAccount implements BookAccount {
       modified: this.modified.toISOString(),
       name: this.name,
       type: this.type,
-      balanceRaw: this.balanceRaw
+      openingBalanceRaw: this.openingBalanceRaw
     };
   }
   thaw(data: any): BookAccount {
@@ -118,11 +122,14 @@ export class LocalBookAccount implements BookAccount {
     obj.modified = new Date(data.modified);
     obj.name = data.name;
     obj.type = data.type;
-    obj.balanceRaw = data.balanceRaw;
+    if (data.openingBalanceRaw != undefined) obj.openingBalanceRaw = data.openingBalanceRaw;
     return obj;
   }
   clone(): BookAccount {
-    return (new LocalBookAccount).thaw(this.freeze());
+    let book = (new LocalBookAccount).thaw(this.freeze());
+    book.spendingTotalRaw = this.spendingTotalRaw;
+    book.transactionTotalRaw = this.transactionTotalRaw;
+    return book;
   }
 }
 
@@ -203,7 +210,7 @@ export class LocalBook implements Book {
     this.accounts = newAccounts;
   }
   calculateReconcile(): void {
-    let balanceMap = this.getBalanceMap();
+    let balanceMap = this.calculateBalanceMap();
     let balances = [];
     for (let a in balanceMap) {
       balances.push({ id: a, amount: balanceMap[a] });
@@ -237,8 +244,9 @@ export class LocalBook implements Book {
     this.reconciles = reconciles;
   }
 
-  private getBalanceMap(): { [s: string]: number; } {
+  private calculateBalanceMap(): { [s: string]: number; } {
     let balances: { [s: string]: number; } = {};
+    let accountMap: { [s: string]: BookAccount; } = {};
     let remainLoop: string[] = [];
     let payLoopIndex = 0;
     let receiveLoopIndex = 0;
@@ -247,17 +255,24 @@ export class LocalBook implements Book {
       return;
 
     this.accounts.forEach(a => {
-      balances[a.id] = 0; 
+      balances[a.id] = 0;
+      accountMap[a.id] = a;
+      a.spendingTotalRaw = 0;
+      a.transactionTotalRaw = 0;
       remainLoop.push(a.id);
     });
 
     this.transactions.forEach(function (t) {
       let payOne = Math.floor(t.amountRaw / t.payerIds.length);
       let payRemaining = t.amountRaw - payOne * t.payerIds.length;
-      t.payerIds.forEach(p => { balances[p] -= payOne; });
+      t.payerIds.forEach(p => { 
+        balances[p] -= payOne; 
+        accountMap[p].transactionTotalRaw -= payOne;
+      });
       for (; payRemaining > 0;) {
         if (t.payerIds.indexOf(remainLoop[payLoopIndex]) >= 0) {
           balances[remainLoop[payLoopIndex]] -= 1;
+          accountMap[remainLoop[payLoopIndex]].transactionTotalRaw -= 1;
           payRemaining--;
         }
         payLoopIndex++;
@@ -266,10 +281,20 @@ export class LocalBook implements Book {
 
       let receiveOne = Math.floor(t.amountRaw / t.payeeIds.length);
       let receiveRemaining = t.amountRaw - receiveOne * t.payeeIds.length;
-      t.payeeIds.forEach(p => { balances[p] += receiveOne; });
+      t.payeeIds.forEach(p => { 
+        balances[p] += receiveOne; 
+        if (t.type == BookTransactionType.Spending)
+          accountMap[p].spendingTotalRaw += receiveOne;
+        else
+          accountMap[p].transactionTotalRaw += receiveOne;
+      });
       for (; receiveRemaining > 0;) {
         if (t.payeeIds.indexOf(remainLoop[receiveLoopIndex]) >= 0) {
-          balances[remainLoop[receiveLoopIndex]] -= 1;
+          balances[remainLoop[receiveLoopIndex]] += 1;
+          if (t.type == BookTransactionType.Spending)
+            accountMap[remainLoop[receiveLoopIndex]].spendingTotalRaw += 1;
+          else
+            accountMap[remainLoop[receiveLoopIndex]].transactionTotalRaw += 1;
           receiveRemaining--;
         }
         receiveLoopIndex++;

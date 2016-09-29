@@ -1,0 +1,2 @@
+Bump VERSION in app/pages/about/about.ts
+Bump android-versionCode and version in config.xml

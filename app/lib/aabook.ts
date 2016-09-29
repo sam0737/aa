@@ -191,6 +191,7 @@ interface ValidationResult {
 export function AmountValidator(control: Control): ValidationResult {
   let str: string = '' + control.value;
   let val: number = parseInt('' + ((+str) * 100 + 0.5), 10);
+  str = str.replace(/^0+([0-9][0-9]*)$/, '$1');
   if (('' + (val / 100)) == str && val >= 0 && val < 1000000000) {
     return null;
   }

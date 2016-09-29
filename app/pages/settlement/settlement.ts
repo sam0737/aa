@@ -3,7 +3,7 @@ import {NavController, NavParams} from 'ionic-angular';
 import {BookService, BookAccountsComponent, BookTransactionType, BookTransaction, BookAccount, AmountValidator} from './../../lib/aabook';
 import {SpendingDetailPage} from './../spending/spending';
 import {ViewController, ModalController} from 'ionic-angular';
-import {TranslatePipe} from "ng2-translate/ng2-translate";
+import {TranslateService, TranslatePipe} from "ng2-translate/ng2-translate";
 
 @Component({
   templateUrl: 'build/pages/settlement/settlement.html',
@@ -12,7 +12,7 @@ import {TranslatePipe} from "ng2-translate/ng2-translate";
 })
 export class SettlementPage {
   list: any;
-  constructor(private nav: NavController, private modal: ModalController, private bs: BookService) {
+  constructor(private nav: NavController, private modal: ModalController, private bs: BookService, private translate: TranslateService) {
     this.list = [];
   }
   ionViewWillEnter() {
@@ -34,7 +34,7 @@ export class SettlementPage {
   goSettlement(trx)
   {
     let model = trx.clone();
-    model.memo = 'Balance settlement';
+    model.memo = this.translate.instant('settlement.default_memo');                               
     let m = this.modal.create(SpendingDetailPage, {model: model});
     m.onDidDismiss((data) => { if (data) this.bs.save(); });
     m.present();

@@ -87,6 +87,12 @@
     "type_wallet": "銀包",
     "type_person": "個人",
     "name": "名字",
+    "spending_header": "消費",
+    "spending_total": "消費總金額",
+    "balance_header": "結餘",
+    "opening_balance": "期初結餘",
+    "transaction_total": "交易總金額",
+    "closing_balance": "目前結餘",
     "create": "新增",
     "save": "儲存"
   },
@@ -95,6 +101,7 @@
     "settle_header": "埋單",
     "settle_text": "為咗等大家都夾返自己嗰一份錢，請按照下面嘅示做轉賬。",
     "done_header": "單已埋",
-    "done_text": "所有交易已經攤平。你可以在交易頁登記新嘅使費。"
+    "done_text": "所有交易已經攤平。你可以在交易頁登記新嘅使費。",
+    "default_memo": "埋單計數轉賬"
   }
 }

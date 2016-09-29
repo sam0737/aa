@@ -35,8 +35,26 @@
       <div item-content *ngIf="model.type == 2">{{ "account_detail.type_wallet" | translate }}</div>
     </ion-item>
     <ion-item>
-      <ion-label floating>{{ "account_detail.name" | translate }}</ion-label>
+      <ion-label stacked>{{ "account_detail.name" | translate }}</ion-label>
       <ion-input [formControl]="form.controls.name" [(ngModel)]="model.name" name="name" #first></ion-input>
+    </ion-item>
+    <ion-item-divider light *ngIf="model.type == 1 &amp;&amp; !new">{{ "account_detail.spending_header" | translate }}</ion-item-divider>
+    <ion-item *ngIf="model.type == 1 &amp;&amp; !new">
+      <h3>{{ "account_detail.spending_total" | translate }}</h3>
+      <h1 [class.positive-amount]="model.spendingTotal &gt;= 0" [class.negative-amount]="model.spendingTotal &lt; 0">{{ model.spendingTotal | number:'1.2-2' }}</h1>
+    </ion-item>
+    <ion-item-divider light>{{ "account_detail.balance_header" | translate }}</ion-item-divider>
+    <ion-item>
+      <ion-label stacked>{{ "account_detail.opening_balance" | translate }}</ion-label>
+      <ion-input [formControl]="form.controls.openingBalance" [(ngModel)]="openingBalance" name="openingBalance" type="number"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="!new">
+      <h3>{{ "account_detail.transaction_total" | translate }}</h3>
+      <h1 [class.positive-amount]="model.transactionTotal &gt;= 0" [class.negative-amount]="model.transactionTotal &lt; 0">{{ model.transactionTotal | number:'1.2-2' }}</h1>
+    </ion-item>
+    <ion-item *ngIf="!new">
+      <h3>{{ "account_detail.closing_balance" | translate }}</h3>
+      <h1 [class.positive-amount]="model.closingBalance &gt;= 0" [class.negative-amount]="model.closingBalance &lt; 0">{{ model.closingBalance | number:'1.2-2' }}</h1>
     </ion-item>
   </form>
 </ion-content>

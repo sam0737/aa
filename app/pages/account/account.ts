@@ -2,7 +2,7 @@ import {Component, ViewChild} from '@angular/core';
 import {ControlGroup, Validators} from '@angular/common';
 import {FORM_DIRECTIVES, FormBuilder, FormGroup} from '@angular/forms';
 import {NavController, NavParams, ViewController, ModalController} from 'ionic-angular';
-import {BookService, BookAccountType, BookAccount, BookAccountTypeValidator} from './../../lib/aabook';
+import {BookService, BookAccountType, BookAccount, BookAccountTypeValidator, AmountValidator} from './../../lib/aabook';
 import {TranslatePipe} from "ng2-translate/ng2-translate";
 
 @Component({
@@ -147,6 +147,7 @@ export class AccountDetailPage {
   noWallet: boolean;
   new: boolean;
   type: string;
+  openingBalance: string;
   constructor(private view: ViewController, private navParams: NavParams, private bs: BookService, private fb: FormBuilder) {
     this.noWallet = !!navParams.get('noWallet');
 
@@ -161,7 +162,9 @@ export class AccountDetailPage {
     this.form = fb.group({
       'type': [this.type, Validators.compose([Validators.required, BookAccountTypeValidator])],
       'name': [this.model.name, Validators.compose([Validators.required])],
-    });
+      'openingBalance': ['', Validators.compose([Validators.required, AmountValidator])],
+    });    
+    this.openingBalance = ''+this.model.openingBalance;
   }
 
   ionViewWillEnter() {
@@ -170,13 +173,21 @@ export class AccountDetailPage {
     this.first.setFocus();
     this.focusDone = true;
   }
-
+  ngAfterViewInit() {
+    this.form.controls['openingBalance'].valueChanges
+      .subscribe((values) => {
+        let control = this.form.controls['openingBalance'];
+        if (!control.valid) return;
+        this.model.openingBalance = +values;
+      });
+  }
   dismiss() {
     this.view.dismiss();
   }
   save() {
     if (!this.form.valid) return;
     this.model.type = parseInt(this.type);
+    this.model.openingBalance = +this.openingBalance;
     this.bs.active.replaceAccount(this.model);
 
     this.view.dismiss({ id: this.model.id });

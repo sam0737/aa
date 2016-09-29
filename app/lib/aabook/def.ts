@@ -30,8 +30,15 @@ export interface BookAccount {
 
   type: BookAccountType;
   name: string;
-  balance: number;
-  balanceRaw: number;
+  
+  openingBalance: number;
+  openingBalanceRaw: number;
+  spendingTotal: number;
+  spendingTotalRaw: number;
+  transactionTotal: number;
+  transactionTotalRaw: number;
+  closingBalance: number;
+
   freeze(): Object;
   thaw(data: any): BookAccount;
   clone(): BookAccount;

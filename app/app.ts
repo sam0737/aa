@@ -1,5 +1,5 @@
 import {HTTP_PROVIDERS, Http} from '@angular/http';
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, enableProdMode} from '@angular/core';
 import {Platform, ionicBootstrap, Menu, NavController, ModalController} from 'ionic-angular';
 import {StatusBar, Splashscreen} from 'ionic-native';
 import {TabsPage} from './pages/tabs/tabs';
@@ -12,6 +12,8 @@ import {TRANSLATE_PROVIDERS, TranslateService, TranslatePipe, TranslateLoader, T
 import * as moment from 'moment';
 import 'moment/min/locales.min';
 
+// enableProdMode();
+
 @Component({
   templateUrl: 'build/root.html',
   providers: [NavController],
@@ -19,7 +21,6 @@ import 'moment/min/locales.min';
   pipes: [TranslatePipe]
 })
 export class MyApp {
-test = 'auto';
   @ViewChild('content') nav: NavController;
   @ViewChild('menu') menu: Menu;
   private rootPage: any;

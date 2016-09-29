@@ -92,6 +92,12 @@
     "type_wallet": "Wallet",
     "type_person": "Person",
     "name": "name",
+    "spending_header": "Spending",
+    "spending_total": "Spending Total",
+    "balance_header": "Balance",
+    "opening_balance": "Opening Balance",
+    "transaction_total": "Transaction Total",
+    "closing_balance": "Current Balance",
     "create": "Create",
     "save": "Save"
   },
@@ -100,6 +106,7 @@
     "settle_header": "Settle the book",
     "settle_text": "To have everyone paying for what they entitled, carry out the transfers as follow.",
     "done_header": "Everything is settled",
-    "done_text": "All transactions are balanced. You might want to enter more in the Transactions tab."
+    "done_text": "All transactions are balanced. You might want to enter more in the Transactions tab.",
+    "default_memo": "Settling the balance"
   }
 }
